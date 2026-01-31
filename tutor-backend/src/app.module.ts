@@ -3,10 +3,11 @@ import { PrismaService } from './prisma/prisma.service';
 import { AuthService } from './auth/auth.service';
 import { AdminController } from './admin/admin.controller';
 import { FamiliesController } from './family/tutors.controller';
+import { AuthController } from './auth/auth.controller';
 
 @Module({
   imports: [],
-  controllers: [AdminController, FamiliesController],
+  controllers: [AdminController, FamiliesController, AuthController],
   providers: [PrismaService, AuthService],
 })
 export class AppModule {}

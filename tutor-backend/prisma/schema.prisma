@@ -17,6 +17,7 @@ model User {
   // Relation fields to profile models
   familyProfile FamilyProfile?
   tutorProfile  TutorProfile?
+  posts        Post[]
   
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -30,7 +31,22 @@ model FamilyProfile {
   userId       Int    @unique
   user         User   @relation(fields: [userId], references: [id])
 }
+model Post {
+  id          Int      @id @default(autoincrement())
+  content     String
+  visibility  String   @default("public") // "public", "tutors-only", "students-only"
+  // For SQLite we store tags as a comma-separated string
+  tags        String?
+  likes       Int      @default(0)
+  shares      Int      @default(0)
+  timestamp   DateTime @default(now())
 
+  // Relation to the User who posted
+  authorId    Int
+  author      User     @relation(fields: [authorId], references: [id])
+}
+
+// Update your User model to include posts
 model TutorProfile {
   id         Int     @id @default(autoincrement())
   bio        String?
